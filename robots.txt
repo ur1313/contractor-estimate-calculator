@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ur1313.github.io/contractor-estimate-calculator/sitemap.xml

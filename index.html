@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contractor Estimate Calculator — Free Job Estimate, Hourly Rate & Markup vs Margin</title>
+<meta name="description" content="Free contractor estimate calculator: figure your billable hourly rate, price a job (labor, materials, subs), compare markup vs margin and print a clean estimate. No sign-up, works offline.">
+<meta name="keywords" content="contractor estimate calculator, markup vs margin calculator, contractor hourly rate calculator, handyman estimate calculator, job estimate calculator, construction markup calculator, margin to markup">
+<link rel="canonical" href="https://ur1313.github.io/contractor-estimate-calculator/">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website"><meta property="og:title" content="Contractor Estimate Calculator — Free Job Estimate, Hourly Rate & Markup vs Margin"><meta property="og:description" content="Free contractor estimate calculator: figure your billable hourly rate, price a job (labor, materials, subs), compare markup vs margin and print a clean estimate. No sign-up, works offline."><meta property="og:url" content="https://ur1313.github.io/contractor-estimate-calculator/">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#1d4e89">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231d4e89'/%3E%3Ctext x='32' y='44' font-size='34' text-anchor='middle' fill='%23ffc928' font-family='Arial' font-weight='700'%3E%24%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "WebApplication", "name": "Contractor Estimate Calculator", "url": "https://ur1313.github.io/contractor-estimate-calculator/", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web browser)", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": "Free contractor estimate calculator: figure your billable hourly rate, price a job (labor, materials, subs), compare markup vs margin and print a clean estimate. No sign-up, works offline."}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the difference between markup and margin?", "acceptedAnswer": {"@type": "Answer", "text": "Markup is profit as a percentage of your cost. Margin is profit as a percentage of the selling price. A job that costs $1,000 and sells for $1,250 has a 25% markup but only a 20% margin."}}, {"@type": "Question", "name": "What markup should a contractor use?", "acceptedAnswer": {"@type": "Answer", "text": "There is no single right number. It depends on your overhead, trade, market and job size. Work backward: figure out the gross margin your overhead and profit goal need, then convert it to a markup. For example, a 30% gross margin needs about a 42.9% markup on cost."}}, {"@type": "Question", "name": "How do I calculate my hourly rate as a contractor or handyman?", "acceptedAnswer": {"@type": "Answer", "text": "Add the pay you want, your labor burden and your yearly overhead, then divide by the hours you can actually bill (not every hour you work). Divide that break-even rate by (1 − your target profit margin) to get a rate that also leaves profit."}}, {"@type": "Question", "name": "Is this calculator free? Do I need an account?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, it's free and there's no account. Everything runs in your browser and works offline after the page loads. Your inputs are saved only in your own browser."}}, {"@type": "Question", "name": "Can I send the estimate to a client?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Use “Print / save client estimate” and pick Save as PDF. The client version shows selling prices only, never your costs or markup."}}]}]</script>
+</head><body><header class="site"><div class="wrap"><a class="brand" href="index.html">Contractor<span>Calc</span></a><nav class="top"><a href="index.html" aria-current=page>Estimate calculator</a><a href="markup-vs-margin-calculator/index.html">Markup vs margin</a><a href="contractor-hourly-rate-calculator/index.html">Hourly rate</a></nav></div></header><main class="wrap"><h1>Free Contractor Estimate Calculator</h1><p class="lede">Work out your hourly rate, price a job (labor, materials, subs, markup or target margin) and print a clean estimate for your client. It's free, you don't need an account, and it works offline once the page loads.</p><section class="card" id="rate" aria-labelledby="rate-h">
+<h2 id="rate-h">1 · Your billable hourly rate</h2>
+<p class="note">What you need to charge per billable hour to pay yourself, cover overhead, and still make a profit.</p>
+<div class="grid">
+<label>Pay you (or your crew) want per year <small>$</small><input id="r-wage" type="number" inputmode="decimal" min="0" step="any" value="60000"></label>
+<label>Labor burden <small>% — SE tax, workers' comp, insurance</small><input id="r-burden" type="number" inputmode="decimal" min="0" step="any" value="20"></label>
+<label>Annual overhead <small>$ — truck, insurance, tools, phone, software, ads</small><input id="r-overhead" type="number" inputmode="decimal" min="0" step="any" value="18000"></label>
+<label>Working weeks per year<input id="r-weeks" type="number" inputmode="decimal" min="0" step="any" value="48"></label>
+<label>Hours worked per week<input id="r-hours" type="number" inputmode="decimal" min="0" step="any" value="45"></label>
+<label>Billable share of hours <small>% — not driving, quoting, admin</small><input id="r-util" type="number" inputmode="decimal" min="0" max="100" step="any" value="65"></label>
+<label>Target net profit margin <small>% of revenue</small><input id="r-profit" type="number" inputmode="decimal" min="0" max="95" step="any" value="15"></label>
+</div>
+<div class="results" aria-live="polite">
+<div class="stat"><span>Billable hours / year</span><b id="r-out-hours">—</b></div>
+<div class="stat"><span>Labor cost / billable hr</span><b id="r-out-cost">—</b></div>
+<div class="stat"><span>Overhead / billable hr</span><b id="r-out-oh">—</b></div>
+<div class="stat"><span>Break-even rate</span><b id="r-out-be">—</b></div>
+<div class="stat hi"><span>Recommended billable rate</span><b id="r-out-rate">—</b></div>
+<div class="stat"><span>Revenue needed / year</span><b id="r-out-rev">—</b></div>
+</div>
+<p id="r-warn" class="warn" aria-live="polite"></p>
+<div class="row-actions no-print"><button type="button" class="btn" id="r-use">Use this rate in the estimate ↓</button><button type="button" class="btn ghost" id="r-print">Print rate worksheet</button><button type="button" class="btn ghost" id="r-reset">Reset</button></div>
+<details><summary>How this is calculated</summary>
+<p class="note">Billable hours = weeks × hours/week × billable %. Labor cost/hr = pay × (1 + burden) ÷ billable hours. Break-even = (labor cost + overhead) ÷ billable hours. Recommended rate = break-even ÷ (1 − profit margin). Burden % is a rough planning number. Self-employment tax alone is about 15.3% on 92.35% of net earnings (IRS Topic 751), and insurance costs vary a lot by state and trade.</p></details>
+</section><section class="card" id="estimate" aria-labelledby="est-h">
+<h2 id="est-h">2 · Job estimate</h2>
+<div class="grid">
+<label>Job name<input id="e-job" type="text"></label>
+<label>Client<input id="e-client" type="text"></label>
+<label>Estimate #<input id="e-num" type="text"></label>
+<label>Date<input id="e-date" type="date"></label>
+</div>
+<h3>Labor <span class="pill" id="e-sub-labor"></span></h3>
+<p class="note">Cost/hr = what the hour costs you (wages + burden). Bill/hr = what you charge. In <b>margin mode</b>, only cost/hr is used.</p>
+<div class="tablewrap"><table class="lines"><thead><tr><th>Task</th><th>Hours</th><th>Cost/hr</th><th>Bill/hr</th><th class="num">Line</th><th></th></tr></thead><tbody id="labor-lines"></tbody></table></div>
+<button type="button" class="btn sm ghost no-print" data-add="labor">+ Labor line</button>
+<h3>Materials <span class="pill" id="e-sub-mat"></span></h3>
+<div class="tablewrap"><table class="lines"><thead><tr><th>Item</th><th>Qty</th><th>Unit cost</th><th class="num">Line</th><th></th></tr></thead><tbody id="mat-lines"></tbody></table></div>
+<button type="button" class="btn sm ghost no-print" data-add="mat">+ Material line</button>
+<h3>Subcontractors <span class="pill" id="e-sub-sub"></span></h3>
+<div class="tablewrap"><table class="lines"><thead><tr><th>Scope</th><th>Cost</th><th class="num">Line</th><th></th></tr></thead><tbody id="sub-lines"></tbody></table></div>
+<button type="button" class="btn sm ghost no-print" data-add="sub">+ Sub line</button>
+<h3>Other costs <span class="pill" id="e-sub-oth"></span></h3>
+<div class="tablewrap"><table class="lines"><thead><tr><th>Item</th><th>Cost</th><th class="num">Line</th><th></th></tr></thead><tbody id="oth-lines"></tbody></table></div>
+<button type="button" class="btn sm ghost no-print" data-add="oth">+ Other line</button>
+
+<h3>Pricing</h3>
+<div class="seg" id="e-mode" role="group" aria-label="Pricing method"><button type="button" data-mode="markup" aria-pressed="true">Markup by category</button><button type="button" data-mode="margin" aria-pressed="false">Target gross margin</button></div>
+<div class="grid" style="margin-top:.7rem">
+<label>Material waste / overage <small>%</small><input id="e-waste" type="number" inputmode="decimal" min="0" step="any"></label>
+<label class="mode-markup">Materials markup <small>%</small><input id="e-matmk" type="number" inputmode="decimal" min="0" step="any"></label>
+<label class="mode-markup">Subcontractor markup <small>%</small><input id="e-submk" type="number" inputmode="decimal" min="0" step="any"></label>
+<label class="mode-markup">Other-cost markup <small>%</small><input id="e-othmk" type="number" inputmode="decimal" min="0" step="any"></label>
+<label class="mode-margin" hidden>Target gross margin <small>% of price</small><input id="e-margin" type="number" inputmode="decimal" min="0" max="95" step="any"></label>
+<label>Contingency <small>% of direct cost</small><input id="e-cont" type="number" inputmode="decimal" min="0" step="any"></label>
+<label>Sales tax on materials <small>% — check your state</small><input id="e-tax" type="number" inputmode="decimal" min="0" step="any"></label>
+<label>Deposit <small>% of total</small><input id="e-dep" type="number" inputmode="decimal" min="0" max="100" step="any"></label>
+</div>
+<div class="results" aria-live="polite">
+<div class="stat"><span>Total job cost (incl. contingency)</span><b id="e-out-cost">—</b></div>
+<div class="stat"><span>Price before tax</span><b id="e-out-price">—</b></div>
+<div class="stat"><span>Sales tax</span><b id="e-out-tax">—</b></div>
+<div class="stat hi"><span>Client total</span><b id="e-out-total">—</b></div>
+<div class="stat"><span>Gross profit</span><b id="e-out-gp">—</b></div>
+<div class="stat"><span>Gross margin</span><b id="e-out-gm">—</b></div>
+<div class="stat"><span>Effective markup on cost</span><b id="e-out-mk">—</b></div>
+<div class="stat"><span>Deposit</span><b id="e-out-dep">—</b></div>
+</div>
+<p id="e-warn" aria-live="polite"></p>
+<label style="margin-top:.6rem">Notes / terms on the printed estimate<textarea id="e-notes" rows="3" style="width:100%;font:inherit;padding:.5rem;border:1px solid #b9c3d0;border-radius:8px;margin-top:.2rem" placeholder="e.g. Valid 30 days. Price assumes no hidden water damage."></textarea></label>
+<div class="row-actions no-print">
+<button type="button" class="btn y" id="e-print-client">Print / save client estimate (PDF)</button>
+<button type="button" class="btn ghost" id="e-print-internal">Print internal cost breakdown</button>
+<button type="button" class="btn ghost" id="e-clear">Blank estimate</button>
+<button type="button" class="btn ghost" id="e-reset">Load sample job</button>
+</div>
+<p class="note">The client estimate shows each line at its selling price. Your costs, markups and margin only appear on the internal printout. To save as a PDF, choose “Save as PDF” in the print dialog. Contingency counts as expected cost, so any you don't use is extra profit.</p>
+</section><aside class="cta no-print" aria-label="Spreadsheet templates">
+<h2>Want to save every bid and reuse your line items?</h2><p>This page forgets your work if you clear your browser. The spreadsheet versions keep every estimate, track the job against the bid, and plug into invoicing.</p>
+<div class="products"><div class="product"><b>Contractor Estimate & Bid Calculator</b><p>This calculator as a full spreadsheet: save bids, reuse line items, billable-rate math, markup vs margin table.</p><div><span class="price">$19</span> &nbsp;<a class="btn sm y" href="https://www.etsy.com/listing/4604262052/contractor-estimate-template" target="_blank" rel="noopener">View on Etsy</a></div></div><div class="product"><b>Contractor Business Kit — all 5</b><p>All five spreadsheets above in one download ($94 if bought separately).</p><div><span class="price">$59</span> &nbsp;<a class="btn sm y" href="https://www.etsy.com/listing/4604241039/contractor-business-spreadsheet-bundle" target="_blank" rel="noopener">View on Etsy</a></div></div><div class="product"><b>Contractor Job Costing & Profit Tracker</b><p>Track estimate vs. actual on every job, change orders, and real profit per job.</p><div><span class="price">$24</span> &nbsp;<a class="btn sm y" href="https://www.etsy.com/listing/4604238715/contractor-job-costing-spreadsheet" target="_blank" rel="noopener">View on Etsy</a></div></div></div>
+<p class="fine">These are paid spreadsheet downloads sold by the people who made this free calculator, in the <a href="https://www.etsy.com/shop/KeyholdLandlord" target="_blank" rel="noopener">KeyholdLandlord Etsy shop</a>. Plain shop links — no affiliate tracking. The calculator stays free whether or not you buy anything. Spreadsheets work in Excel and Google Sheets and were built with AI assistance and checked by hand.</p>
+</aside><section class="card" id="markup-margin" aria-labelledby="mm-h">
+<h2 id="mm-h">3 · Markup vs margin</h2>
+<p class="note">Enter your cost, then type a markup, a margin <i>or</i> a selling price. The other two fill in.</p>
+<div class="grid">
+<label>Your cost <small>$</small><input id="m-cost" type="number" inputmode="decimal" min="0" step="any" value="1000"></label>
+<label>Markup <small>% of cost</small><input id="m-markup" type="number" inputmode="decimal" step="any" value="25"></label>
+<label>Margin <small>% of price</small><input id="m-margin" type="number" inputmode="decimal" step="any"></label>
+<label>Selling price <small>$</small><input id="m-price" type="number" inputmode="decimal" min="0" step="any"></label>
+</div>
+<div class="results" aria-live="polite">
+<div class="stat hi"><span>Selling price</span><b id="m-out-price">—</b></div>
+<div class="stat"><span>Gross profit</span><b id="m-out-profit">—</b></div>
+<div class="stat"><span>Markup</span><b id="m-out-mk">—</b></div>
+<div class="stat"><span>Margin</span><b id="m-out-mg">—</b></div>
+</div>
+<p id="m-gap" class="note" aria-live="polite"></p>
+<div class="grid" style="margin-top:.5rem">
+<div><h3>Markup → margin</h3><table><thead><tr><th>Markup</th><th>Margin</th><th class="num">Price on $100 cost</th></tr></thead><tbody id="m-table"></tbody></table></div>
+<div><h3>Margin → markup needed</h3><table><thead><tr><th>Margin</th><th>Markup</th><th class="num">Price on $100 cost</th></tr></thead><tbody id="m-table2"></tbody></table></div>
+</div>
+<details><summary>Formulas</summary><p class="note">Markup = (price − cost) ÷ cost. Margin = (price − cost) ÷ price. Price from markup = cost × (1 + markup). Price from margin = cost ÷ (1 − margin). Markup needed for a margin = margin ÷ (1 − margin).</p></details>
+</section><aside class="cta no-print" aria-label="Spreadsheet templates">
+<h2>Rest of the contractor toolkit</h2><p>Flat-rate pricing, getting paid, and tax time.</p>
+<div class="products"><div class="product"><b>Handyman Flat-Rate Price Book (60 tasks)</b><p>60 common handyman tasks with editable time, materials and flat-rate prices.</p><div><span class="price">$17</span> &nbsp;<a class="btn sm y" href="https://www.etsy.com/listing/4604240165/handyman-price-list-template-flat-rate" target="_blank" rel="noopener">View on Etsy</a></div></div><div class="product"><b>Contractor Invoice & Payment Tracker</b><p>Invoices, deposits, partial payments and an aging report so nothing slips.</p><div><span class="price">$15</span> &nbsp;<a class="btn sm y" href="https://www.etsy.com/listing/4604262508/contractor-invoice-template-handyman" target="_blank" rel="noopener">View on Etsy</a></div></div><div class="product"><b>Contractor Tax & Expense Tracker (Schedule C)</b><p>Expenses by Schedule C line, mileage log, 1099 tracking and quarterly estimate worksheet.</p><div><span class="price">$19</span> &nbsp;<a class="btn sm y" href="https://www.etsy.com/listing/4604263284/contractor-expense-tracker-spreadsheet" target="_blank" rel="noopener">View on Etsy</a></div></div></div>
+<p class="fine">These are paid spreadsheet downloads sold by the people who made this free calculator, in the <a href="https://www.etsy.com/shop/KeyholdLandlord" target="_blank" rel="noopener">KeyholdLandlord Etsy shop</a>. Plain shop links — no affiliate tracking. The calculator stays free whether or not you buy anything. Spreadsheets work in Excel and Google Sheets and were built with AI assistance and checked by hand.</p>
+</aside><section class="card" id="faq"><h2>FAQ</h2><details><summary>What is the difference between markup and margin?</summary><p>Markup is profit as a percentage of your cost. Margin is profit as a percentage of the selling price. A job that costs $1,000 and sells for $1,250 has a 25% markup but only a 20% margin.</p></details><details><summary>What markup should a contractor use?</summary><p>There is no single right number. It depends on your overhead, trade, market and job size. Work backward: figure out the gross margin your overhead and profit goal need, then convert it to a markup. For example, a 30% gross margin needs about a 42.9% markup on cost.</p></details><details><summary>How do I calculate my hourly rate as a contractor or handyman?</summary><p>Add the pay you want, your labor burden and your yearly overhead, then divide by the hours you can actually bill (not every hour you work). Divide that break-even rate by (1 − your target profit margin) to get a rate that also leaves profit.</p></details><details><summary>Is this calculator free? Do I need an account?</summary><p>Yes, it's free and there's no account. Everything runs in your browser and works offline after the page loads. Your inputs are saved only in your own browser.</p></details><details><summary>Can I send the estimate to a client?</summary><p>Yes. Use “Print / save client estimate” and pick Save as PDF. The client version shows selling prices only, never your costs or markup.</p></details></section></main>
+<footer class="site"><div class="wrap">
+<p><b>Disclaimer:</b> This free calculator is for planning and estimating only. It isn't legal, tax, accounting or financial advice, and it doesn't promise any profit. Check sales-tax, licensing and contract rules for your state, and talk to a qualified professional for tax questions. Results are only as good as the numbers you enter.</p>
+<p><b>Privacy:</b> no accounts, cookies, analytics or ads. Everything you type stays in your browser (localStorage), and you can clear it any time in your browser settings.</p>
+<p>Made by the <a href="https://www.etsy.com/shop/KeyholdLandlord" target="_blank" rel="noopener">KeyholdLandlord</a> Etsy shop. Etsy is a trademark of Etsy, Inc. This site isn't affiliated with or endorsed by Etsy. © <span id="yr"></span></p>
+</div></footer>
+<div id="printSummary"></div>
+<script src="assets/app.js"></script>
+</body></html>
